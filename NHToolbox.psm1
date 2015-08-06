@@ -1,3 +1,3 @@
 
-Import-Module "$PSScriptRoot/Tools/NHRegex.psm1"
-."$PSScriptRoot/Tools/Find-Replace.ps1"
+Import-Module "$PSScriptRoot/Tools/*.psm1"
+Get-ChildItem "$PSScriptRoot/Tools/*.ps1" | foreach { . $_ }
