@@ -161,13 +161,11 @@ A .Net compatible Regular Express to test against the strings.
     param(
 	    [Parameter(Mandatory=$true,
 			ValueFromPipeline=$true,
-			ValueFromPipelineByPropertyName=$true,
-			 Position=0
+			ValueFromPipelineByPropertyName=$true
 		)]
         [string[]]$String,
 	    [Parameter(Mandatory=$true,
-			ValueFromPipelineByPropertyName=$true,
-			Position=0
+			ValueFromPipelineByPropertyName=$true
 		)]
         [string]$Regex
     )

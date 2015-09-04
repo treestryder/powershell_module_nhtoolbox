@@ -43,7 +43,13 @@
     <Compile Include="NHToolbox.psd1" />
     <Compile Include="NHToolbox.psm1" />
     <Compile Include="NHToolbox.tests.ps1" />
+    <Compile Include="Tools\NHJournal.psm1" />
+    <Compile Include="Tools\Find-Replace.ps1" />
+    <Compile Include="Tools\Get-OsInfo.ps1" />
+    <Compile Include="Tools\Get-UserLoggedOn.ps1" />
+    <Compile Include="Tools\Import-IisLog.ps1" />
     <Compile Include="Tools\NHRegex.psm1" />
+    <Compile Include="Tools\Resolve-HostName.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />
