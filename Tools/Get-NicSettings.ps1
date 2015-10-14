@@ -1,7 +1,7 @@
 ﻿function Get-NicSettings {
     <#
     .Synopsis
-       Retreives specific network settings. Initially created to facility our Domain merger.
+       Retreives specific network settings. Initially created to facility a domain merger.
 
     .EXAMPLE
         Get-NicSettings

@@ -16,7 +16,7 @@ Expands the returned Alias and AddressList Arrays to a single string each.
     [CmdletBinding()]
     param (
         [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [alias('CN','MachineName','Name','Host','IP','HostName')]
+        [alias('CN','MachineName','Name','Host','IP','HostName','DnsHostName')]
         [String[]]$ComputerName,
         [switch]$Expand
     )
