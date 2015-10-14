@@ -40,9 +40,12 @@
     <Folder Include="Tools\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="license.txt" />
     <Compile Include="NHToolbox.psd1" />
     <Compile Include="NHToolbox.psm1" />
     <Compile Include="NHToolbox.tests.ps1" />
+    <Compile Include="Tools\Get-NicSettings.ps1" />
+    <Compile Include="Tools\Get-RelativePath.ps1" />
     <Compile Include="Tools\NHJournal.psm1" />
     <Compile Include="Tools\Find-Replace.ps1" />
     <Compile Include="Tools\Get-OsInfo.ps1" />
