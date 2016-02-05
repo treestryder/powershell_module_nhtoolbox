@@ -20,7 +20,7 @@
     param (
         [Alias('DNSHostName', 'HostName', 'Name')]
         [Parameter(
-            #ValueFromPipeline=$true,
+			Position=0,
             ValueFromPipelineByPropertyName=$true
         )]
         [object[]]$ComputerName = '.',
@@ -30,6 +30,8 @@
     Begin {
         $filter = 'IpEnabled=true'
         if ($Force) { $filter = $null }
+		# Bitmap of the possible settings related to NetBIOS over TCP/IP. Values are identified in the following table.
+		$TcpipNetbiosOptions = 'EnableNetbiosViaDhcp (0)', 'EnableNetbios (1)', 'DisableNetbios (2)'
     }
 
     Process {
@@ -43,7 +45,8 @@
                 @{Name='IPSubnet';Expression={$_.IPSubnet -join ', '}},
                 @{Name='DefaultIPGateway';Expression={$_.DefaultIPGateway -join ', '}},
                 @{Name='DNSServerSearchOrder';Expression={$_.DNSServerSearchOrder -join ', '}},
-                WINSEnableLMHostsLookup,TcpipNetbiosOptions,WINSPrimaryServer,WINSSecondaryServer
+				@{Name='TcpipNetbiosOptions'; Expression={$TcpipNetbiosOptions[$_.TcpipNetbiosOptions]}},
+                WINSEnableLMHostsLookup,WINSPrimaryServer,WINSSecondaryServer
         }
     }
 }

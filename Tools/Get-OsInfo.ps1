@@ -29,11 +29,12 @@ Get-Content 'Computers.txt' | LTM\Get-OSInfo
 				$os = Get-WmiObject -ClassName win32_operatingsystem -ComputerName $ComputerName
 				# Convert dates to DateTime objects.
 				if ($os) {
+                    $os | Add-Member -MemberType AliasProperty -Force -Name ComputerName -Value '__SERVER'
 					$os | Add-Member -MemberType NoteProperty -Force -Name InstallDate -Value $(
 						if ($os.InstallDate) {$os.ConvertToDateTime($os.InstallDate)}
 					)
-					$os | Add-Member -MemberType NoteProperty -Force -Name LastBootUpDate -Value $(
-						if ($os.LastBootUpDate) {$os.ConvertToDateTime($os.LastBootUpDate)}
+					$os | Add-Member -MemberType NoteProperty -Force -Name LastBootUpTime -Value $(
+						if ($os.LastBootUpTime) {$os.ConvertToDateTime($os.LastBootUpTime)}
 					)
 					$os | Add-Member -MemberType NoteProperty -Force -Name LocalDateTime -Value $(
 						if ($os.LocalDateTime) {$os.ConvertToDateTime($os.LocalDateTime)}
