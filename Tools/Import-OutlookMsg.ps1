@@ -1,13 +1,19 @@
 ﻿function Import-OutlookMsg {
 <#
 .Synopsis
-   Imports Outlook MSG export formated files.
+   Imports exported Outlook MSG files into Powershell.
 
 .Notes
     Requires Outlook to be installed.
 
+    See also...
+    Outlook Object Model https://msdn.microsoft.com/en-us/library/office/ff866465.aspx
+    MailItem Members https://msdn.microsoft.com/en-us/library/office/ff861252.aspx
+
 .Example
-    Import-OutlookMsg -Path 'C:\Users\nhartley\Downloads\DANGER\SpearPhishingAttempt-Attached_Image.msg'
+    $object = Import-OutlookMsg -Path '.\path\file.msg'
+    $object | Get-Member
+    $object | Format-List -Property *
 
 #>
 
