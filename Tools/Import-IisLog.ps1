@@ -11,10 +11,10 @@ converts the date and time fields into Local Time.
 One or more file paths to import. Excepts piped input.
 
 .Example
-LTM\Import-IISLog -Path ex131018.log
+Import-IISLog -Path ex131018.log
 
 .Example
-Get-ChildItem '*.log' | LTM\Import-IISLog
+Get-ChildItem '*.log' | Import-IISLog
 
 #>
     [CmdletBinding()]
