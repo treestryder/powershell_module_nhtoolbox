@@ -72,7 +72,8 @@ FunctionsToExport = @(
 	'Resolve-HostName',
     'Set-PropertyIf',
     'Suspend-ScreenLock',
-	'Test-Regex'
+	'Test-Regex',
+	'Write-Log'
 )
 
 # Cmdlets to export from this module
