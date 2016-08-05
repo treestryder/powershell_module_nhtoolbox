@@ -18,10 +18,9 @@ Expand-Template -Template 'Y2K happened on {day:dddd}' -Value @{ day = (Get-Date
 Y2K happened on Saturday
 
 
-
 .Example
 
-Expand-Template -Template ' {dateName:MM/dd/yyyy} {stringName} ' -Value @{ stringName = 'stringValue'; miss = 'test'; dateName = (Get-Date) }
+Expand-Template -Template ' {decimal:0.0#} {stringName,20} ' -Value @{ stringName = 'stringValue'; miss = 'test'; decimal = 123.456 }
 
  08/05/2016 stringValue
 
@@ -38,7 +37,7 @@ TODO: Handle piped Value input, including objects.
     )
     $i = 0
     foreach ($key in $Value.Keys) {
-        $TokenRegex = "\{$key(\}|\:[^\}]+\})"
+        $TokenRegex = "\{$key(\}|[\,\:][^\}]+\})"
         $Template = $Template -replace $TokenRegex, "{$i`$1"
         $i++
         Write-Verbose "Regex:    $TokenRegex"
