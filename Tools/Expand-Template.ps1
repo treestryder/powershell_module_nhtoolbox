@@ -7,6 +7,11 @@ Processes a string as a template.
 Uses the .Net format syntax, after first converting any matching keys in a hash table to their respective index value.
 
 .Example
+Expand-Template -Value @{a=1} -Template 'a = {a}'
+ a = 1
+
+
+.Example
 
 Expand-Template -Template 'Y2K happened on {day:dddd}' -Value @{ day = (Get-Date '1/1/2000') }
 
