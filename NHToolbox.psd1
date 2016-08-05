@@ -59,6 +59,7 @@ FunctionsToExport = @(
 	'Add-Journal'
 	'Find-Replace'
 	'ConvertFrom-Regex',
+    'Expand-Template',
     'Find-FileNamePattern',
     'Format-Xml',
 	'Get-Journal',
