@@ -68,6 +68,7 @@ FunctionsToExport = @(
 	'Get-OsInfo',
 	'Get-UserLoggedOn',
 	'Import-IisLog',
+    'Import-Gpx',
     'Import-OutlookMsg'
 	'Import-Regex',
 	'Resolve-HostName',
