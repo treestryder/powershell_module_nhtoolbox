@@ -58,6 +58,7 @@ NestedModules = @()
 FunctionsToExport = @(
 	'Add-Journal'
 	'Find-Replace'
+    'ConvertFrom-Gpx',
 	'ConvertFrom-Regex',
     'Expand-Template',
     'Find-FileNamePattern',
@@ -68,7 +69,6 @@ FunctionsToExport = @(
 	'Get-OsInfo',
 	'Get-UserLoggedOn',
 	'Import-IisLog',
-    'Import-Gpx',
     'Import-OutlookMsg'
 	'Import-Regex',
 	'Resolve-HostName',

@@ -1,15 +1,15 @@
 ﻿# Inspiration (initial source) based on the Windows PowerShell Team Blog
-function Import-Gpx {
+function ConvertFrom-Gpx {
 <#
 .Synopsis
-Imports GPX file.
+Converts GPX content into Powershell custom objects.
 
 .Parameter InputObject
 Xml object to be formatted. Other objects are converted to strings, concatenated together,
 then cast to an XML object.
 
 .Example
-Get-Content input.gpx | Import-Gpx
+Get-Content input.gpx | ConvertFrom-Gpx
 
 Imports the data contained in input.gpx.
 
@@ -56,4 +56,3 @@ Imports the data contained in input.gpx.
         }
     }
 }
-gc C:\Users\natha\Downloads\favourites.gpx | Import-Gpx 
