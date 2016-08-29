@@ -71,6 +71,7 @@ FunctionsToExport = @(
 	'Import-IisLog',
     'Import-OutlookMsg'
 	'Import-Regex',
+	'New-RandomishPassword'
 	'Resolve-HostName',
     'Set-PropertyIf',
     'Suspend-ScreenLock',
