@@ -48,14 +48,42 @@ Expand-Template -Template ' {decimal:0.0#} {stringName,20} ' -Value @{ stringNam
                 [string]$Template
             )
             $i = 0
+            $t = $Template
             foreach ($key in $Hashtable.Keys) {
                 $TokenRegex = "\{$key(\}|[\,\:][^\}]+\})"
-                $Template = $Template -replace $TokenRegex, "{$i`$1"
+                $t = $t -replace $TokenRegex, "{$i`$1"
                 $i++
                 Write-Verbose "Regex:    $TokenRegex"
-                Write-Verbose "Template: $Template"
+                Write-Verbose "Template: $t"
             }
-            return $Template -f [array]$Hashtable.Values
+            $output = ''
+            try {
+                $output = $t -f [array]$Hashtable.Values
+            }
+            catch {
+                $msg = @"
+Failed to expand Template:
+$t
+
+"@
+                if ($Hashtable -is [hashtable]) {
+                    $msg += @'
+
+Hashtable:
+'@
+                    $i = 0
+                    $indexed = foreach ($key in $Hashtable.Keys) {
+                        [pscustomobject][ordered]@{
+                            Index = $i++
+                            Name  = $key
+                            Value = $Hashtable[$key]
+                        }
+                    }
+                    $msg += $indexed | Format-Table -AutoSize | Out-String
+                }
+                Write-Error $msg
+            }
+            return $output
         }
     }
 
