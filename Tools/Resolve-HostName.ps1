@@ -1,4 +1,3 @@
-function Resolve-HostName {
 <#
 .Synopsis
 Resolves IP addresses and Hostnames, like NSLookup.
@@ -13,15 +12,20 @@ Host Name or IP Address to be resolved.
 Expands the returned Alias and AddressList Arrays to a single string each.
 
 #>
+function Resolve-HostName {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [alias('CN','MachineName','Name','Host','IP','HostName','DnsHostName')]
-        [String[]]$ComputerName,
+        [Parameter(
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [alias('CN','MachineName','Name','Host','IP','HostName','DnsHostName','PSComputerName','CSName','__Server')]
+        [String[]]$ComputerName = $env:COMPUTERNAME,
         [switch]$Expand
     )
     process {
         Foreach ($c in $ComputerName) {
+			Write-Verbose $c
 		    try {
 			    $result = [System.Net.Dns]::GetHostEntry($c)
                 if ($Expand) {
@@ -36,8 +40,7 @@ Expands the returned Alias and AddressList Arrays to a single string each.
 				}
 		    }
 		    catch {
-			    Write-Warning "Lookup of [$c] failed."
-				throw $_
+				Write-Error $_
 		    }
         }
     }
