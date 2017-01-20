@@ -21,6 +21,7 @@
         [Alias('DNSHostName', 'HostName', 'Name')]
         [Parameter(
 			Position=0,
+            ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true
         )]
         [object[]]$ComputerName = '.',

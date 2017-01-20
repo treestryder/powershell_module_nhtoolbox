@@ -66,14 +66,16 @@ FunctionsToExport = @(
     'Format-Xml',
 	'Get-Journal',
     'Get-NicSettings',
-    'Get-RelativePath',
 	'Get-OsInfo',
+    'Get-RelativePath',
+	'Get-UniqueTcpConnections',
 	'Get-UserLoggedOn',
 	'Import-IisLog',
     'Import-OutlookMsg'
 	'Import-Regex',
 	'New-RandomishPassword'
 	'Resolve-HostName',
+	'Set-NicSettings',
     'Set-PropertyIf',
     'Suspend-ScreenLock',
 	'Test-Regex',
