@@ -1,8 +1,14 @@
 [CmdletBinding()]
 param (
     [string]$Path = (Join-Path $env:ProgramFiles 'WindowsPowerShell\Modules\NHToolbox'),
-    [switch]$Force
+    [switch]$Force,
+    [switch]$Remove
 )
+
+if ($Remove) {
+    Remove-Item -Path $Path -Recurse -Force:$Force
+    return
+}
 
 if (Test-Path $Path) {
     if ($Force) {
@@ -17,7 +23,7 @@ if (Test-Path $Path) {
 
 Push-Location $PSScriptRoot
 
-Copy-Item -Path * -Destination $Path -Recurse -Exclude .\Install.ps1
+Copy-Item -Path * -Destination $Path -Recurse -Exclude 'Install.ps1','.\.git'
 
 Pop-Location
 
