@@ -24,6 +24,11 @@ Expand-Template -Template ' {decimal:0.0#} {stringName,20} ' -Value @{ stringNam
 
  08/05/2016 stringValue
 
+.Notes
+TODO: Handle piped Value input, including objects.
+TODO: Possibly add token escaping. Maybe like this @{ '{' = '{'; '}' = '}' } used in a template like this '{{}Escaped Brackets{}}'
+TODO: Add a -Force parameter to clear any remaining tokens. -replace '\{[^\}]+\}', ''
+
 #>
     [CmdletBinding()]
     param (
