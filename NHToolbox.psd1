@@ -57,8 +57,9 @@ NestedModules = @()
 # Functions to export from this module
 FunctionsToExport = @(
 	'Add-AclAccessRule',
-	'Add-Journal'
-	'Find-Replace'
+	'Add-Journal',
+	'Find-Replace',
+	'Convert-HgToGit',
     'ConvertFrom-Gpx',
 	'ConvertFrom-Regex',
 	'ConvertTo-GpxTrack'
