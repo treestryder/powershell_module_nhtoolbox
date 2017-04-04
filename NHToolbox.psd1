@@ -61,6 +61,7 @@ FunctionsToExport = @(
 	'Find-Replace'
     'ConvertFrom-Gpx',
 	'ConvertFrom-Regex',
+	'ConvertTo-GpxTrack'
     'Expand-Template',
     'Find-FileNamePattern',
     'Format-Xml',
@@ -71,6 +72,7 @@ FunctionsToExport = @(
 	'Get-UniqueTcpConnections',
 	'Get-UserLoggedOn',
 	'Import-IisLog',
+	'Import-Opml',
     'Import-OutlookMsg'
 	'Import-Regex',
 	'New-RandomishPassword'
