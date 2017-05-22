@@ -63,6 +63,9 @@ function Assert-HotfixInstalled {
                     $o.BuildNumber = $os.BuildNumber
                     $o.OSArchitecture = $os.OSArchitecture
                     $o.LastBootUpTime = try {$os.ConvertToDateTime($os.LastBootUpTime)} catch {}
+                }
+                catch {}
+                try {
                     # Throws an exception, when the Hotfixes are not found.
                     $hf = @(Get-HotFix -Id $Id -ComputerName $c -ErrorAction Stop)
                     $hotFixes = $hf | foreach { '{0} ({1:g})' -f $_.HotFixID, $_.InstalledOn }
