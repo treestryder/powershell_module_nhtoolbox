@@ -76,7 +76,8 @@ FunctionsToExport = @(
 	'Import-Opml',
     'Import-OutlookMsg'
 	'Import-Regex',
-	'New-RandomishPassword'
+	'New-RandomishPassword',
+	'Out-Speech',
 	'Resolve-HostName',
 	'Set-NicSettings',
     'Set-PropertyIf',
