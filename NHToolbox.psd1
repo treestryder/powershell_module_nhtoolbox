@@ -58,6 +58,7 @@ NestedModules = @()
 FunctionsToExport = @(
 	'Add-AclAccessRule',
 	'Add-Journal',
+	'Assert-HotfixInstalled',
 	'Find-Replace',
 	'Convert-HgToGit',
     'ConvertFrom-Gpx',
