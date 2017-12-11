@@ -4,7 +4,7 @@
 RootModule = 'NHToolbox.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.01'
+ModuleVersion = '0.02'
 
 # ID used to uniquely identify this module
 GUID = 'bd4390dc-a8ad-4bce-8d69-f53ccf8e4163'

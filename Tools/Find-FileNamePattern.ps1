@@ -1,5 +1,5 @@
 ﻿function Find-FileNamePattern {
-    <#
+ <#
     .Synopsis
         Searches all shares or drives of a Windows computer for file name patterns.
 
@@ -22,12 +22,12 @@
         When this switch is used all matching files are returned.
 
     .Parameter AllDrives
-        By default this scanned visible shares. When this switch is used, all non-mapped drives are scanned, instead of shares.
+        By default this scans visible shares. When this switch is used, all non-mapped drives are scanned, instead of shares.
 
-    .Example 
+    .Example
         .\Find-FileNamePattern.ps1 -ComputerName SomeComputer -Include '*'
 
-        Scans the shares SomeComputer for any file and stops at the first hit.
+        Scans the shares of SomeComputer for any file and stops at the first hit.
 
     .Example
         Get-Content FileWithComputerNames.txt | .\Find-FileNamePattern.ps1 -AllDrives -AllMatches -Include '*.log' | Export-Csv Report.csv
@@ -36,7 +36,7 @@
 
     .Example
         Import-Csv CsvFileContainingAComputerNameHeading.csv | .\Find-FileNamePattern.ps1 -Include '*.locky', '_HELP_instructions.txt', '_recovery_*.txt' -AllMatches -AllDrives -Verbose | Export-Csv -Path Report.csv -NoTypeInformation
-    
+
         Demonstrates supplying the ComputerNames by piping objects with a ComputerName property, looking for all files matching
         various encryption-ware file name patters, on all drives, and writing the results to a report.
 
@@ -92,7 +92,9 @@
                 Continue
             }
             try {
+                Write-Verbose 'Gathering drive information.'
                 $drives = Get-WmiObject win32_logicaldisk -filter "(drivetype=2 or drivetype=3 or drivetype=5 or drivetype=6) and size > 1" -ComputerName $Computer -ErrorAction Stop | select -ExpandProperty DeviceID
+                Write-Verbose 'Gathering share information.'
                 $shares = Get-WmiObject -ComputerName $Computer -Class Win32_Share -ErrorAction Stop | where {$_.Name -notmatch '\$$'}
             }
             catch {
@@ -110,7 +112,7 @@
                         $paths += '{0}\' -f $drive
                     }
                     else {
-                        $path += '\\{0}\{1}' -f $Computer, $drive.Replace(':','$')
+                        $paths += '\\{0}\{1}' -f $Computer, $drive.Replace(':','$')
                     }
                 }
             }
@@ -120,7 +122,7 @@
                         $paths += $share.Path
                     }
                     else {
-                        $path += '\\{0}\{1}' -f $Computer, $share.Name
+                        $paths += '\\{0}\{1}' -f $Computer, $share.Name
                     }
                 }
             }
@@ -128,7 +130,7 @@
             foreach ($path in $paths) {
                 Write-Verbose "    Recursively searching $path"
                 $clean = $true
-                Get-ChildItem -Path (Join-Path $path '*') -Recurse -Include $Include -Verbose:$Verbose -ErrorAction SilentlyContinue -ErrorVariable e | foreach {
+                Get-ChildItem -Path (Join-Path $path '*') -Recurse -Include $Include -Verbose:$Verbose -ErrorAction SilentlyContinue -ErrorVariable e | ForEach-Object {
                     $clean = $false
                     $result.Status = 'FOUND'
                     $result.Path = $_.FullName
@@ -139,9 +141,10 @@
                     Write-Output $result
                     if ($AllMatches -eq $false) { Continue }
                 }
-                $e | foreach {
-                    $result.Status = 'ERROR: Accessing: {0} Received: {1}' -f $_.TargetObject, $_.ToString()
-                    $result.LastWriteTime = Get-Date
+                foreach ($object in $e) {
+                    $result = $ResultTemplate.psobject.Copy()
+                    $result.Status = 'ERROR: {0}' -f $object.ToString()
+                    $result.Path = $object.TargetObject
                     Write-Warning $result.Status
                     Write-Output $result
                 }
