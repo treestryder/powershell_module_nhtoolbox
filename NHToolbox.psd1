@@ -61,6 +61,7 @@ FunctionsToExport = @(
 	'Assert-HotfixInstalled',
 	'Find-Replace',
 	'Convert-HgToGit',
+	'Convert-ImageFormat',
     'ConvertFrom-Gpx',
 	'ConvertFrom-Regex',
 	'ConvertTo-GpxTrack'
