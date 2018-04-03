@@ -21,13 +21,23 @@ function Convert-HgToGit {
         throw "The Git Path should not exist: $Destination"
     }
 
+    'Cloning Mercurial repository {0} to {1}' -f $Path, $Destination | Write-Verbose
     hg clone -U $Path $Destination
 
     Push-Location $Destination
-    git init
-    $originalExclude = Get-Content -Path '.git/info/exclude' -Raw
+    'Initializing Git repository.' | Write-Verbose
+    &{
+        Invoke-Git init
+    } | Write-Verbose
+    
+    $hadOriginalExclude = $false
+    if (Test-Path '.git/info/exclude') {
+        $hadOriginalExclude = $true
+        $originalExclude = Get-Content -Path '.git/info/exclude' -Raw
+    }
     Add-Content -Path '.git/info/exclude' -Value '/.hg/'
 
+    'Gathering Mercurial logs.' | Write-Verbose
     $log = [xml](hg log -T xml -r 0:tip -v)
     foreach ($e in $log.log.logentry) {
         $rev = $e.revision
@@ -35,12 +45,21 @@ function Convert-HgToGit {
         $msg = $e.msg.'#text' -replace '"',"'"
         Write-Host
         Write-Host (' ---> Revision {0}: {1}' -f $rev, $msg)
-        hg update -v -r $rev
-        git add -v --all
-        git commit -v -m "$date $msg"
+    
+        'Updating Mecurial state.' | Write-Verbose
+        &{
+            hg update -r $rev
+        } | Write-Verbpse
+        'Adding any missing files.' | Write-Verbose
+        &{
+            Invoke-Git add --all
+            Invoke-Git commit -m "$date $msg"
+        } | Write-Verbose
     }
 
-    Set-Content -Path '.git/info/exclude'-Value $originalExclude
+    if ($hadOriginalExclude) {
+        Set-Content -Path '.git/info/exclude'-Value $originalExclude
+    }
     Remove-Item '.hg' -Recurse -Force
     Pop-Location
 }

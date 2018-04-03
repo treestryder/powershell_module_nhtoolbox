@@ -13,8 +13,6 @@ function Get-AdComputerReport {
         [string]$Filter = $('name -eq "{0}"' -f $env:COMPUTERNAME)
     )
 
-    #Requires -Module ActiveDirectory
-
     $outputTemplate = [pscustomobject][ordered] @{
         Name = $null
         DNSHostName = $null
