@@ -8,6 +8,9 @@
     $BsitComputers = Get-ADComputer -Filter 'Enabled -eq $true' -SearchBase 'OU=Workstations,OU=BSIT-Supported,DC=peckham,DC=org' | Select-Object -ExpandProperty Name
     $BsitComputers | Find-Favorites -Verbose | Export-Csv -NoTypeInformation C:\Users\admin.nhartley\Desktop\Favorites-BSIT.csv
 
+    $urls = dir C:\Users\admin.nhartley\Desktop\Favorites-*.csv | ForEach-Object { Import-Csv $_ } | Select-Object -ExpandProperty URL -Unique
+    $groupedUrls = $urls | Group-Object -Property {$_  -replace '^.*//' -replace '/.*$'}
+
     .NOTES
     Output Properties: URL, ComputerName, FileName, FilePath
 #>
