@@ -12,13 +12,16 @@ function Install-FlightRecorder {
     File listing performance counters to collect, one per line. 
     Or a PAL Threshold XML file.
 
+    .NOTES
+    Must be ran as an admininstrator.
+    
     #>
     [CmdletBinding()]
     param (
         [string]$Path
     )
 
-    #Requires -RunAsAdministrator
+    # #Requires -RunAsAdministrator
     $DeleteTempFile = $False
 
     function Main {
