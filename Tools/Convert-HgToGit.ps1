@@ -15,10 +15,12 @@ function Convert-HgToGit {
         [string]$Destination
     )
 
+    if (-not (Test-Path $Path)) {
+        throw "The source Path does not exist: $Path"
+    }
 
     if (Test-Path $Destination) {
-        #Remove-Item $Destination -Force -Recurse
-        throw "The Git Path should not exist: $Destination"
+        throw "The Git Destination should not exist: $Destination"
     }
 
     'Cloning Mercurial repository {0} to {1}' -f $Path, $Destination | Write-Verbose
@@ -27,7 +29,7 @@ function Convert-HgToGit {
     Push-Location $Destination
     'Initializing Git repository.' | Write-Verbose
     &{
-        Invoke-Git init
+        git init
     } | Write-Verbose
     
     $hadOriginalExclude = $false
@@ -49,11 +51,11 @@ function Convert-HgToGit {
         'Updating Mecurial state.' | Write-Verbose
         &{
             hg update -r $rev
-        } | Write-Verbpse
+        } | Write-Verbose
         'Adding any missing files.' | Write-Verbose
         &{
-            Invoke-Git add --all
-            Invoke-Git commit -m "$date $msg"
+            git add --all
+            git commit -m "$date $msg"
         } | Write-Verbose
     }
 

@@ -1,11 +1,10 @@
-﻿﻿<#
+﻿function New-IISWebApp {
+<#
 .Synopsis
    New-IISWebApp
 .EXAMPLE
    
 #>
-function New-IISWebApp
-{
     [CmdletBinding()]
     param (
         # Param1 help description
