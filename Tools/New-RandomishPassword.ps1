@@ -1,14 +1,16 @@
 function New-RandomishPassword {
     param (
-        [int]$Length = 10,
-        [string]$Characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ1234567890~!@#$%^&*()_-+={[}]|:;<,>/\.?'
+        [int]$Length = 12,
+        [string]$Characters = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQURSTUVWXYZ23456789~!@#$%^&*()_-+={[}]|:;<,>/\.?',
+        [switch]$AsPlainText
     )
 
-    $password = New-Object System.Text.StringBuilder
+    $password = (Get-Random -InputObject $Characters.ToCharArray() -Count $Length) -join ''
 
-    for ($i = 0; $i -lt $Length; $i++) {
-        $c = Get-Random -Minimum 0 -Maximum $characters.Length
-        $null = $password.Append($Characters[$c])
+    if ($AsPlainText) {
+        $password | Write-Output
     }
-    return $password.ToString()
+    else {
+        ConvertTo-SecureString -String $password -AsPlainText -Force | Write-Output
+    }
 }
