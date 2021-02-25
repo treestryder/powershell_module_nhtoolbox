@@ -29,7 +29,7 @@ the above value) can be specified to prevent overwriting a value on a match.
 .Parameter IdProperty
 Optional input object ID property for Verbose logging. Defaults to "ID".
 
-.Parameter IdProperty
+.Parameter RuleIdProperty
 Optional Rule ID property for Verbose logging. Defaults to "RuleId".
 
 .Parameter AllMatches
